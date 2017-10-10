@@ -90,8 +90,8 @@ gulp.task('javascript', function() {
       ]
     }
   }, function(err, stats) {
-    // NOP, it's just a required second argument, even if an empty lambda.
-    // No, calling gulp callback here is not necessary, for the webpack to work.
+    // A required second argument, even if an empty lambda.
+    browsersync.reload();
   });
 });
 
@@ -107,7 +107,7 @@ gulp.task('browsersync', function() {
 
 gulp.task('watch', ['browsersync', 'html', 'fonts-sass-css', 'javascript'], function() {
   gulp.watch(['sources/scss/fonts/**/*.{otf,ttf,woff,woff2}', 'sources/scss/**/*.scss'], ['fonts-sass-css']);
-  gulp.watch('sources/js/**/*.js', ['javascript']);
+  gulp.watch(['sources/js/**/*.js','sources/js/**/*.jsx'], ['javascript']);
   gulp.watch('sources/index.html', ['html']);
 });
 
