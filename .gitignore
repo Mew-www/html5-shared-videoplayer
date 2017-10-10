@@ -3,3 +3,6 @@
 
 # npm modules
 /node_modules/
+
+# distributable (compiled) files
+/distribution/
