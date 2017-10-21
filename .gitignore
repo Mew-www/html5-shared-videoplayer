@@ -8,4 +8,4 @@
 /distribution/
 
 # Environment dependent settings
-js/settings.js
+/sources/js/settings.js
