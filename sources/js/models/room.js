@@ -1,16 +1,21 @@
 export class UnauthenticatedRoom {
-  constructor(id, description, video_source_uri) {
-    this.id = id;
-    this.description = description;
-    this.video_source_uri = video_source_uri;
+  constructor(unauthed_room_json) {
+    this.id               = unauthed_room_json.id;
+    this.description      = unauthed_room_json.description;
+    this.video_source_uri = unauthed_room_json.video;
   }
 }
 
 export class AuthenticatedRoom extends UnauthenticatedRoom {
-  constructor(unauthed_room, pin, playing, videotime) {
-    super(unauthed_room.id, unauthed_room.description, unauthed_room.video_source_uri);
-    this.pin = pin;
-    this.playing = playing;
-    this.videotime = videotime;
+  constructor(authed_room_json) {
+    super(
+      authed_room_json.id,
+      authed_room_json.description,
+      authed_room_json.video
+    );
+    // Additional attributes exist when authenticated
+    this.pin        = authed_room_json.pin;
+    this.playing    = authed_room_json.playing;
+    this.videotime  = authed_room_json.videotime;
   }
 }
