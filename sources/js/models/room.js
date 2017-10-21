@@ -7,9 +7,10 @@ export class UnauthenticatedRoom {
 }
 
 export class AuthenticatedRoom extends UnauthenticatedRoom {
-  constructor(unauthed_room, pin, videotime) {
+  constructor(unauthed_room, pin, playing, videotime) {
     super(unauthed_room.id, unauthed_room.description, unauthed_room.video_source_uri);
     this.pin = pin;
+    this.playing = playing;
     this.videotime = videotime;
   }
 }
