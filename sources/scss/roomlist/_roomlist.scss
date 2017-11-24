@@ -1,0 +1,40 @@
+%clearfix {
+  &::after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+}
+
+.Roomlist {
+  padding-top: 20px;
+  @extend %clearfix;
+
+  // Wrapper enables us to use 2 different borders (one for outset button-like-appearance, other for inner teal outline)
+  &__itemwrapper {
+    margin-left: 2px;
+    margin-right: 2px;
+    border: 4px outset #a7a7a7;
+    display: table;
+    float: left;
+  }
+  &__item {
+    border: 2px solid teal;
+    padding: 4px;
+    &-description {
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+    }
+    &-id {
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+    }
+    &-video {
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+}

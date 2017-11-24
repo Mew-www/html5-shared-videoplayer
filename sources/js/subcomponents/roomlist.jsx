@@ -24,7 +24,7 @@ export class RoomlistComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div className="Roomlist">
         {this.state.available_rooms === null ?
           <p>Loading</p>
           :
@@ -32,7 +32,23 @@ export class RoomlistComponent extends Component {
             <p>No rooms found</p>
             :
             this.state.available_rooms.sort((room1, room2) => room1.id - room2.id).map(
-              (room) => <button key={room.id} onClick={()=>console.log(`${room.description} (Room ${room.id})`)}>{`Room ${room.id}`}</button>
+              (room) => {
+                return (
+                  <div key={room.id} className="Roomlist__itemwrapper">
+                    <div className="Roomlist__item">
+                      <p className="Roomlist__item-description">{room.description}</p>
+                      <p className="Roomlist__item-id">Room {room.id}</p>
+                      <p className="Roomlist__item-video">
+                        {room.video ?
+                          <span><i class="material-icons">&#xE8DA;</i> {room.video}</span>
+                          :
+                          `No video playing`}
+                      </p>
+                    </div>
+                    <div className="Roomlist__create-item-btn"></div>
+                  </div>
+                );
+              }
             )
         }
       </div>

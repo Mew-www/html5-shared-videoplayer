@@ -2,7 +2,7 @@ export class UnauthenticatedRoom {
   constructor(unauthed_room_json) {
     this.id               = unauthed_room_json.id;
     this.description      = unauthed_room_json.description;
-    this.video_source_uri = unauthed_room_json.video;
+    this.video            = unauthed_room_json.video;
   }
 }
 
