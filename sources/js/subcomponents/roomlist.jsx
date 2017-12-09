@@ -8,8 +8,14 @@ export class RoomlistComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      available_rooms: null
+      available_rooms: null,
+      is_creating: false,
+      new_room_pin: '',
+      new_room_description: ''
     };
+  }
+
+  reloadRooms() {
     axios.get(Settings.ROOMS_URI)
       .then((response) => {
         let rooms_json = response.data;
@@ -20,6 +26,31 @@ export class RoomlistComponent extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  createRoom() {
+    let pin = this.state.new_room_pin;
+    let description = this.state.new_room_description;
+    axios.post(Settings.ROOMS_URI, {'pin': pin, 'description': description})
+      .then((response) => {
+        // Reset input controls
+        this.setState({
+          new_room_pin: '',
+          new_room_description: '',
+          is_creating: false
+        });
+        // Reload list
+        this.reloadRooms();
+        // Inform user
+        alert('Your room was successfully created!');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+  componentDidMount() {
+    this.reloadRooms();
   }
 
   render() {
@@ -45,11 +76,47 @@ export class RoomlistComponent extends Component {
                           `No video playing`}
                       </p>
                     </div>
-                    <div className="Roomlist__create-item-btn"></div>
                   </div>
                 );
               }
             )
+        }
+        {this.state.is_creating ?
+          <div className="Roomlist__create-item-dialog">
+            <label>
+              PIN:
+              &nbsp;
+              <input type="text"
+                     value={this.state.new_room_pin}
+                     onChange={(e) => {this.setState({new_room_pin: e.target.value});}}
+              />
+            </label>
+            &nbsp;
+            <label>
+              Description:
+              &nbsp;
+              <input type="text"
+                     value={this.state.new_room_description}
+                     onChange={(e) => {this.setState({new_room_description: e.target.value});}}
+              />
+            </label>
+            <br/>
+            <button onClick={(e) => {this.createRoom(this.state.new_room_pin, this.state.new_room_description)}}
+                    disabled={!this.state.new_room_pin || !this.state.new_room_description}>
+              Create
+            </button>
+            &nbsp;
+            <button onClick={(e) => {this.setState({new_room_pin: '', new_room_description: '', is_creating: false});}}>
+              Cancel
+            </button>
+          </div>
+          :
+          <div className="Roomlist__create-item-btn"
+               onClick={(e) => {this.setState({is_creating: true})}}>
+            <i className="material-icons">&#xE148;</i>
+            &nbsp;
+            Get a room
+          </div>
         }
       </div>
     );

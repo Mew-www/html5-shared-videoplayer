@@ -37,4 +37,18 @@
       font-size: 14px;
     }
   }
+  &__create-item-btn {
+    margin-top: 1em;
+    display: table;
+    border: 4px outset #a7a7a7;
+    padding: 4px;
+    background: #d6d6d6;
+    cursor: pointer;
+  }
+  &__create-item-dialog {
+    margin-top: 1em;
+    display: table;
+    border: 1px solid #a7a7a7;
+    padding: 2px;
+  }
 }

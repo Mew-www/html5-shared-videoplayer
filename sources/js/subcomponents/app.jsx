@@ -4,8 +4,6 @@ import {Video} from "../models/video";
 import {VideolistComponent} from "./videolist";
 import {RoomlistComponent} from "./roomlist";
 
-let bbb = new Video("testi", "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", "");
-
 export class AppComponent extends Component {
 
   constructor(props) {
