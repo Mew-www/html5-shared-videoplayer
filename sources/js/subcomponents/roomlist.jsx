@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Settings from '../settings';
-import {UnauthenticatedRoom} from "../models/room";
+import {AuthenticatedRoom, UnauthenticatedRoom} from "../models/room";
 
 export class RoomlistComponent extends Component {
 
@@ -49,6 +49,22 @@ export class RoomlistComponent extends Component {
       })
   }
 
+  authenticateRoom(room_id) {
+    let input_pin = prompt('PIN');
+    axios.post(Settings.ROOM_AUTH_URI, {'room': room_id, 'pin': input_pin})
+      .then((auth_response) => {
+        axios.get(Settings.SINGLE_ROOM_URI(room_id))
+          .then((room_response) => {
+            let authenticated_room = new AuthenticatedRoom(room_response.data);
+            this.props.changeRoom(authenticated_room);
+          });
+        alert('Successfully authenticated');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   componentDidMount() {
     this.reloadRooms();
   }
@@ -75,6 +91,8 @@ export class RoomlistComponent extends Component {
                           :
                           `No video playing`}
                       </p>
+                      <br/>
+                      <button onClick={(e) => {this.authenticateRoom(room.id);}}>Authenticate</button>
                     </div>
                   </div>
                 );
