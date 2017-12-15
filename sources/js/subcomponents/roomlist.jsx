@@ -16,7 +16,7 @@ export class RoomlistComponent extends Component {
   }
 
   reloadRooms() {
-    axios.get(Settings.ROOMS_URI)
+    axios.get(Settings.ROOMS_URI, {withCredentials: true})
       .then((response) => {
         let rooms_json = response.data;
         this.setState({
@@ -31,7 +31,7 @@ export class RoomlistComponent extends Component {
   createRoom() {
     let pin = this.state.new_room_pin;
     let description = this.state.new_room_description;
-    axios.post(Settings.ROOMS_URI, {'pin': pin, 'description': description})
+    axios.post(Settings.ROOMS_URI, {'pin': pin, 'description': description}, {withCredentials: true})
       .then((response) => {
         // Reset input controls
         this.setState({
@@ -51,9 +51,9 @@ export class RoomlistComponent extends Component {
 
   authenticateRoom(room_id) {
     let input_pin = prompt('PIN');
-    axios.post(Settings.ROOM_AUTH_URI, {'room': room_id, 'pin': input_pin})
+    axios.post(Settings.ROOM_AUTH_URI, {'room': room_id, 'pin': input_pin}, {withCredentials: true})
       .then((auth_response) => {
-        axios.get(Settings.SINGLE_ROOM_URI(room_id))
+        axios.get(Settings.SINGLE_ROOM_URI(room_id), {withCredentials: true})
           .then((room_response) => {
             let authenticated_room = new AuthenticatedRoom(room_response.data);
             this.props.changeRoom(authenticated_room);
