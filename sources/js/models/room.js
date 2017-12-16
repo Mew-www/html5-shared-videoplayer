@@ -8,11 +8,7 @@ export class UnauthenticatedRoom {
 
 export class AuthenticatedRoom extends UnauthenticatedRoom {
   constructor(authed_room_json) {
-    super(
-      authed_room_json.id,
-      authed_room_json.description,
-      authed_room_json.video
-    );
+    super(authed_room_json);
     // Additional attributes exist when authenticated
     this.pin        = authed_room_json.pin;
     this.playing    = authed_room_json.playing;
