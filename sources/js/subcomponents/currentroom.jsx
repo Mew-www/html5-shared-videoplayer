@@ -11,7 +11,19 @@ export class CurrentroomComponent extends Component {
     };
   }
 
+  /*
+    Override state.room on receiving props, if:
+      previous state.room was "falsy" (null or so)
+      previous state.room.id was different than new props' room.id
+   */
+  componentWillReceiveProps(next_props) {
+    if (!this.state.room || this.state.room.id !== next_props.room.id) {
+      this.setState({room: next_props.room});
+    }
+  }
+
   render() {
+    console.log(this.state.room);
     return (
       <div className="CurrentroomWrapper">
         {this.state.room ?
