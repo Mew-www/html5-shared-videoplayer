@@ -1,4 +1,11 @@
 .App {
   display: table;
-  background: linear-gradient(to right top, #88ffbb, #FFF)
+  background: linear-gradient(to right top, #88ffbb, #FFF);
+
+  &__current-room {
+    display: block;
+    margin: 4px;
+    border: 2px solid teal;
+    padding: 4px;
+  }
 }

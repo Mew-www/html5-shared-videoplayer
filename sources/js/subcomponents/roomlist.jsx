@@ -78,26 +78,29 @@ export class RoomlistComponent extends Component {
           !this.state.available_rooms ?
             <p>No rooms found</p>
             :
-            this.state.available_rooms.sort((room1, room2) => room1.id - room2.id).map(
-              (room) => {
-                return (
-                  <div key={room.id} className="Roomlist__itemwrapper">
-                    <div className="Roomlist__item">
-                      <p className="Roomlist__item-description">{room.description}</p>
-                      <p className="Roomlist__item-id">Room {room.id}</p>
-                      <p className="Roomlist__item-video">
-                        {room.video ?
-                          <span><i class="material-icons">&#xE8DA;</i> {room.video}</span>
-                          :
-                          `No video playing`}
-                      </p>
-                      <br/>
-                      <button onClick={(e) => {this.authenticateRoom(room.id);}}>Authenticate</button>
+            this.state.available_rooms
+              .sort((room1, room2) => room1.id - room2.id)
+              .filter((room) => room.id !== (this.props.current_room ? this.props.current_room.id : null))
+              .map(
+                (room) => {
+                  return (
+                    <div key={room.id} className="Roomlist__itemwrapper">
+                      <div className="Roomlist__item">
+                        <p className="Roomlist__item-description">{room.description}</p>
+                        <p className="Roomlist__item-id">Room {room.id}</p>
+                        <p className="Roomlist__item-video">
+                          {room.video ?
+                            <span><i class="material-icons">&#xE8DA;</i> {room.video}</span>
+                            :
+                            `No video playing`}
+                        </p>
+                        <br/>
+                        <button onClick={(e) => {this.authenticateRoom(room.id);}}>Authenticate</button>
+                      </div>
                     </div>
-                  </div>
-                );
-              }
-            )
+                  );
+                }
+              )
         }
         {this.state.is_creating ?
           <div className="Roomlist__create-item-dialog">
